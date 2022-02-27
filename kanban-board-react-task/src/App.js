@@ -5,13 +5,13 @@ import Listing from "./listing";
 import Navbar from "./navbar";
 import { v4 as uuidv4 } from "uuid";
 
-      
-      const getColumnn = () => JSON.parse(localStorage.getItem("datas")) ?JSON.parse(localStorage.getItem("datas")):localStorage.setItem("datas", JSON.stringify([]));
-
+const getColumnn = () =>
+  JSON.parse(localStorage.getItem("datas"))
+    ? JSON.parse(localStorage.getItem("datas"))
+    : localStorage.setItem("datas", JSON.stringify([]));
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       column: getColumnn(),
       name: "shan",
@@ -22,7 +22,6 @@ class App extends Component {
       answers: [],
     };
     this.onDragEnd = this.onDragEnd.bind(this);
-
     let columnsmany = {};
     this.state.column.forEach((column) => {
       columnsmany = {
@@ -32,7 +31,6 @@ class App extends Component {
     });
     this.setState({ column: columnsmany });
   }
-
   onDragEnd(result) {
     if (!result.destination) {
       return;
@@ -43,7 +41,6 @@ class App extends Component {
         result.source.index,
         result.destination.index
       );
-
       this.setState({
         column,
       });
@@ -53,42 +50,33 @@ class App extends Component {
         result.source.index,
         result.destination.index
       );
-
       const column = JSON.parse(JSON.stringify(this.state.column));
-
       column[result.type].answers = answers;
-
       this.setState({
         column,
       });
     }
   }
-
   render() {
     let obj = {
       id: uuidv4(),
       name: this.state.name,
       answers: this.state.answers,
     };
-
     let itemobj = {
       id: uuidv4(),
       content: this.state.des,
       title: this.state.title,
     };
-
     const saveindexHandler = (index) => {
       this.setState({ saveindex: index });
     };
-
     const edithandleSubmit = (e) => {
       e.preventDefault();
       this.state.column[this.state.saveindex].name = this.state.name;
       localStorage.setItem("datas", JSON.stringify(this.state.column));
-
       this.setState({ toggle: !this.state.toggle });
     };
-
     const listSubmit = (e) => {
       e.preventDefault();
       let arr = this.state.column[this.state.saveindex].answers;
@@ -98,23 +86,18 @@ class App extends Component {
 
       this.setState({ toggle: !this.state.toggle });
     };
-
     const addcolumn = (e) => {
       e.preventDefault();
       let addCol = [...this.state.column, obj];
       localStorage.setItem("datas", JSON.stringify(addCol));
       this.setState({ column: addCol });
     };
-
     const deletehandler = (index) => {
       const cpyquestions = [...this.state.column];
       cpyquestions.splice(index, 1);
       localStorage["datas"] = JSON.stringify(cpyquestions);
-
       this.setState({ column: cpyquestions });
     };
-
-
     return (
       <>
         <Navbar />
@@ -138,7 +121,9 @@ class App extends Component {
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Colum</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Add Colum
+                        </h5>
                       </div>
                       <div class="modal-body">
                         <form onSubmit={addcolumn}>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { getItemStyle, getAnswerListStyle } from "./utils";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Listing = props => {
   const { question, questionNum } = props;
